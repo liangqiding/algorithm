@@ -23,10 +23,13 @@ public class BrotherWords {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String s = bufferedReader.readLine();
         String[] arr = s.trim().split(" ");
+        System.out.println(arr.length);
         int n = Integer.parseInt(arr[0]);
         TreeSet<String> set = new TreeSet<>();
         String x = arr[n + 1];
+        System.out.println("x:"+x);
         int k = Integer.parseInt(arr[n + 2]);
+        System.out.println("k:"+k);
         for (int i = 1; i < n; i++) {
             String t = arr[i];
             if (test(x, t)) {
@@ -36,6 +39,7 @@ public class BrotherWords {
         int i = 1;
         for (String next : set) {
             i++;
+            System.out.println("i:"+i);
             if (i == k) {
                 System.out.println(next);
             }
