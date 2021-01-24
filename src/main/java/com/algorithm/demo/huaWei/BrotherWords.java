@@ -4,10 +4,9 @@ package com.algorithm.demo.huaWei;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
- * date: 2021-01-23 16:30
  * description 兄弟单词
  *
  * @author qiDing
@@ -15,34 +14,34 @@ import java.util.TreeSet;
 public class BrotherWords {
 
     /**
-     * 先输入单词的个数n，再输入n个单词。
-     * 再输入一个单词，为待查找的单词x
-     * 最后输入数字k
+     * 前置条件：
+     * 1.查找单词和比对单词相同
+     * 2.查找单词和比对单词长度一致
+     * 思路：以比对单词为模板字母，每次同时reacple一个字母再比对字符串长度
      */
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String s = bufferedReader.readLine();
         String[] arr = s.trim().split(" ");
-        System.out.println(arr.length);
         int n = Integer.parseInt(arr[0]);
-        TreeSet<String> set = new TreeSet<>();
+        ArrayList<String> list = new ArrayList<>();
         String x = arr[n + 1];
-        System.out.println("x:"+x);
         int k = Integer.parseInt(arr[n + 2]);
-        System.out.println("k:"+k);
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             String t = arr[i];
-            if (test(x, t)) {
-                set.add(t);
+            if (test(x, t) && !x.equals(t)) {
+                list.add(t);
             }
         }
         int i = 1;
-        for (String next : set) {
-            i++;
-            System.out.println("i:"+i);
+        int size = list.size();
+        System.out.println(size);
+        Object[] objects = list.stream().sorted().toArray();
+        for (Object next : objects) {
             if (i == k) {
                 System.out.println(next);
             }
+            i++;
         }
     }
 
