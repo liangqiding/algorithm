@@ -1,9 +1,7 @@
 package com.algorithm.demo.huaWei;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -26,7 +24,7 @@ public class Test {
 
 
     public static void main(String[] args) throws IOException {
-
-        System.out.println('a'-'A');
+        int a = 6 * 10 + 7 - '0';
+        System.out.println(a);
     }
 }

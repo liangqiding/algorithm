@@ -3,7 +3,7 @@ package com.algorithm.demo.huaWei;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class 字符运算器{
+public class Main0 {
 
     public static void main(String[] args) throws IOException {
         InputStream in = System.in;
@@ -14,18 +14,21 @@ public class 字符运算器{
         public char lastsign1 = 0, lastsign2 = 0;
         public int temp1 = 0, temp2 = 0;
         private static final char TEMPCHAR = 0;
-
         public int expr(InputStream in) throws IOException {
             int result = 0;
             char c;
-            a: while((c = (char)in.read()) != '\n') {
+            a:
+            while ((c = (char) in.read()) != '\n') {
                 switch (c) {
                     case ')':
                     case ']':
-                    case '}': break a;
+                    case '}':
+                        break a;
                     case '(':
                     case '[':
-                    case '{': temp2 = new ExprDemo().expr(in); break;
+                    case '{':
+                        temp2 = new ExprDemo().expr(in);
+                        break;
                     case '+':
                     case '-':
                         jisuan1(TEMPCHAR);
@@ -36,7 +39,8 @@ public class 字符运算器{
                         jisuan1(c);
                         break;
                     default:
-                        temp2 = temp2 * 10 + c - '0'; break;
+                        temp2 = temp2 * 10 + c - '0';
+                        break;
                 }
             }
             jisuan1(TEMPCHAR);
@@ -46,10 +50,17 @@ public class 字符运算器{
 
         private void jisuan1(char c) {
             switch (lastsign2) {
-                case 0: temp1 = temp2; break;
-                case '*': temp1 *= temp2; break;
-                case '/': temp1 /= temp2; break;
-                default: break;
+                case 0:
+                    temp1 = temp2;
+                    break;
+                case '*':
+                    temp1 *= temp2;
+                    break;
+                case '/':
+                    temp1 /= temp2;
+                    break;
+                default:
+                    break;
             }
             temp2 = 0;
             lastsign2 = c;
@@ -57,11 +68,17 @@ public class 字符运算器{
 
         private int jisuan2(char c, int result) {
             switch (lastsign1) {
-                case 0: result = temp1; break;
-                case '-': result -= temp1; break;
-                case '+': result += temp1;
-                break;
-                default: break;
+                case 0:
+                    result = temp1;
+                    break;
+                case '-':
+                    result -= temp1;
+                    break;
+                case '+':
+                    result += temp1;
+                    break;
+                default:
+                    break;
             }
             temp1 = 0;
             lastsign1 = c;
