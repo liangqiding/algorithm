@@ -1,10 +1,11 @@
 package com.algorithm.demo.huaWei;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * description
@@ -184,6 +185,106 @@ public class 近似值 {
                 }
             }
             return len[a.length][b.length];
+        }
+    }
+
+    /**
+     * date: 2021-01-29 16:02
+     * description
+     *
+     * @author qiDing
+     */
+    public static class 二十点 {
+
+        public static void main(String[] args) throws IOException {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String input = "";
+            while ((input = br.readLine()) != null) {
+                String[] s = input.trim().split(" ");
+                int[] ints = Arrays.stream(s).mapToInt(Integer::parseInt).toArray();
+                boolean test = false;
+                to:
+                for (int i = 0; i < ints.length; i++) {
+                    for (int j = i + 1; j < ints.length; j++) {
+                        int pos = ints[i];
+                        ints[i] = ints[j];
+                        ints[j] = pos;
+                        Node node = new Node(ints[0], 1);
+                        if (test(node, ints)) {
+                            System.out.println(JSON.toJSONString(ints));
+                            test = true;
+                            break to;
+                        }
+                    }
+                }
+                System.out.println(test);
+            }
+        }
+
+        public static boolean test(Node node, int[] ints) {
+            if (node.sum == 24) {
+                return true;
+            }
+            float sum = node.sum;
+            int next = node.next;
+            if (next >= ints.length) {
+                return false;
+            }
+            int b = ints[next];
+            return test(new Node(sum + b, next + 1), ints)
+                    || test(new Node(sum * b, next + 1), ints)
+                    || test(new Node(sum - b, next + 1), ints)
+                    || test(new Node(sum / b, next + 1), ints);
+        }
+
+        static class Node {
+            float sum;
+            // 下个点
+            int next;
+
+            public Node(float sum, int next) {
+                this.sum = sum;
+                this.next = next;
+            }
+        }
+    }
+
+    public static class 成绩排序 {
+        public static void main(String[] args) throws IOException {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String str = "";
+            while ((str = br.readLine()) != null) {
+                int n = Integer.parseInt(str.trim());
+                int bool = Integer.parseInt(br.readLine().trim());
+                List<Node> nodes = new ArrayList<>();
+                for (int i = 0; i < n; i++) {
+                    String[] temp = br.readLine().trim().split(" ");
+                    nodes.add(new Node(Integer.parseInt(temp[1]), temp[0]));
+                }
+                sort(nodes, bool);
+            }
+        }
+
+        public static void sort(List<Node> nodes, int bool) {
+            if (bool==0){
+                nodes.stream().sorted(Comparator.comparing(Node::getC).reversed()).forEach(node -> System.out.println(node.name+" "+node.c));
+            }else {
+                nodes.stream().sorted(Comparator.comparing(Node::getC)).forEach(node -> System.out.println(node.name+" "+node.c));
+            }
+        }
+
+        static class Node {
+            int c;
+            String name;
+
+            public Node(int c, String name) {
+                this.c = c;
+                this.name = name;
+            }
+
+            public int getC() {
+                return c;
+            }
         }
     }
 }
