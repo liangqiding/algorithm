@@ -11,13 +11,11 @@ import java.util.Stack;
  * @author qiDing
  */
 public class Test {
-    public static void main(String[] args) {
-        Stack<String> stack = new Stack<>();
-        stack.push("6666");
-        stack.push("7777");
-        System.out.println(JSON.toJSONString(stack));
-        stack.pop();
-        System.out.println(JSON.toJSONString(stack));
 
+
+    public static void main(String[] args) {
+        String a="122";
+        int i = a.charAt(2) - '0';
+        System.out.println(i);
     }
 }

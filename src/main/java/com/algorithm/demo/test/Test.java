@@ -8,39 +8,63 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 /**
- * date: 2021-01-27 13:10
+ * date: 2021-01-29 16:02
  * description
  *
  * @author qiDing
  */
 public class Test {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String input = "";
-        while ((input = bufferedReader.readLine()) != null) {
-            int n = Integer.parseInt(input);
-            String[] s = bufferedReader.readLine().trim().split(" ");
-            int[] ints = Arrays.stream(s).mapToInt(Integer::parseInt).toArray();
-            System.out.println(test(n, ints));
-        }
-    }
 
-    public static int test(int n, int[] start) {
-        int[] end = new int[start.length];
-        for (int i = 0; i < n; i++) {
-            end[i] = 1;
-        }
-        int max = 1;
-        for (int i = 1; i < n; i++) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (start[i] > start[j]) {
-                    end[i] = Math.max(end[i], end[j] + 1);
-                    if (end[i]>max){
-                        max=end[i];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = "";
+        while ((input = br.readLine()) != null) {
+            String[] s = input.trim().split(" ");
+            int[] ints = Arrays.stream(s).mapToInt(Integer::parseInt).toArray();
+            boolean test = false;
+            to:
+            for (int i = 0; i < ints.length; i++) {
+                for (int j = i + 1; j < ints.length; j++) {
+                    int pos = ints[i];
+                    ints[i] = ints[j];
+                    ints[j] = pos;
+                    Node node = new Node(ints[0], 1);
+                    if (test(node, ints)) {
+                        System.out.println(JSON.toJSONString(ints));
+                        test = true;
+                        break to;
                     }
                 }
             }
+            System.out.println(test);
         }
-        return max;
+    }
+
+    public static boolean test(Node node, int[] ints) {
+        if (node.sum == 24) {
+            return true;
+        }
+        int sum = node.sum;
+        int next = node.next;
+        if (next >= ints.length) {
+            return false;
+        }
+        System.out.println(node.sum+"---"+node.next);
+        int b = ints[next];
+        return test(new Node(sum + b, next + 1), ints)
+                || test(new Node(sum * b, next + 1), ints)
+                || test(new Node(sum - b, next + 1), ints)
+                || test(new Node(sum / b, next + 1), ints);
+    }
+
+    static class Node {
+        int sum;
+        // 下个点
+        int next;
+
+        public Node(int sum, int next) {
+            this.sum = sum;
+            this.next = next;
+        }
     }
 }
