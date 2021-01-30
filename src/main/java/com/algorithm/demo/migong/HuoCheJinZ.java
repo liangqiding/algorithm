@@ -1,4 +1,4 @@
-package com.algorithm.demo.test;
+package com.algorithm.demo.migong;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -11,21 +11,24 @@ import java.util.Stack;
  */
 import java.util.*;
 
-public class 火车进站{
+public class HuoCheJinZ{
     private static final Stack<String> stack1=new Stack<String>();
     private static final Stack<String> stack2=new Stack<String>();
     private static final List<String> list=new ArrayList<String>();
 
     public static void ff(String str){
+        // 完成
         if(stack1.isEmpty()&&stack2.isEmpty()){
             list.add(str.trim());
             return;
         }
+        // 2只出站
         if(!stack2.isEmpty()){
             String str1=stack2.pop();
             ff(str+" "+str1);
             stack2.push(str1);
         }
+        // 出站1后马上进2站
         if(!stack1.isEmpty()){
             String str2=stack1.pop();
             stack2.push(str2);

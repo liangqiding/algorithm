@@ -1,37 +1,49 @@
 package com.algorithm.demo.test;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
+ * date: 2021-01-30 16:46
  * description
  *
  * @author qiDing
- * @date 2021-01-29 22:47
  */
 public class Test {
-    private static final Stack<String> stack1 = new Stack<String>();
-    private static final Stack<String> stack2 = new Stack<String>();
-    private static final List<String> list = new ArrayList<String>();
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            int n = scanner.nextInt();
-            scanner.nextLine();
-            String str = scanner.nextLine();
-            String[] ss = str.split(" ");
-            for (int i = ss.length - 1; i >= 0; i--)
-                stack1.push(ss[i]);
-            ArrayList<Integer> integers = new ArrayList<>();
-            Collections.sort(list);
-            for (String s : list)
-                System.out.println(s);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = "";
+        while ((input = br.readLine()) != null) {
+            char[] chars = input.trim().toCharArray();
+            // 区间开始坐标
+            int point = 0;
+            // 当前最长子串结束位置坐标
+            int end = 0;
+            // 区间数字总数
+            int sum = 0;
+            // 最长的区间数字总数
+            int max = 0;
+            String output = "";
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] >= '0' && chars[i] <= '9') {
+                    if (i - end <= 1) {
+                        end = i;
+                        max++;
+                        output += chars[i];
+                    } else if (max < sum) {
+                        output = input.substring(point, i);
+                        max = sum;
+                        end = i;
+                        point = end;
+                        sum = 0;
+                    } else if (max == sum) {
+                    } else {
+                        point = i;
+                        sum++;
+                    }
+                }
+            }
         }
     }
-
-    public void test(String s, int point) {
-
-    }
-
-
 }
