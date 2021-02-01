@@ -1,4 +1,4 @@
-package com.algorithm.demo.test;
+package com.algorithm.demo.huaWei;
 
 import java.io.BufferedReader;
 import java.io.IOException;

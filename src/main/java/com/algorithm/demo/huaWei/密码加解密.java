@@ -1,4 +1,4 @@
-package com.algorithm.demo;
+package com.algorithm.demo.huaWei;
 
 /**
  * date: 2021-01-26 16:32
